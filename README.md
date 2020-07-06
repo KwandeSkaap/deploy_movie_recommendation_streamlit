@@ -75,13 +75,13 @@ To do this, follow the steps below by running the given commands within a Git ba
  2. Clone the *forked* repo to your local machine.
 
  ```bash
- git clone https://github.com/{your-account-name}/unsupervised-predict-streamlit-template.git
+ git clone https://github.com/unspervised-Learning-team/deploy_movie_recommendation_streamlit.git
  ```  
 
  3. Navigate to the base of the cloned repo, and start the Streamlit app.
 
  ```bash
- cd unsupervised-predict-streamlit-template/
+ cd deploy_movie_recommendation_streamlit/
  streamlit run edsa_recommender.py
  ```
 
@@ -126,8 +126,10 @@ conda install -c conda-forge scikit-surprise
 3. Clone your copy of the API repo, and navigate to its root directory:
 
 ```bash
-git clone https://github.com/{your-account-name}/unsupervised-predict-streamlit-template.git
-cd unsupervised-predict-streamlit-template/
+git clone https://github.com/unspervised-Learning-team/deploy_movie_recommendation_streamlit.git
+
+cd deploy_movie_recommendation_streamlit/
+
 ```
 
 | :information_source: NOTE :information_source:                                                                                                    |
