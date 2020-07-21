@@ -137,13 +137,25 @@ def main():
     # Sort movies based on score
     qual_movies = qual_movies.sort_values('score', ascending=False)
 
+    # Split pipe-separated genres
+    split_genres = pd.DataFrame(qual_movies.genres.str.split('|').tolist(), index=qual_movies.movieId).stack()
+    split_genres = split_genres.reset_index([0, 'movieId'])
+    split_genres.columns = ['movieId', 'genres']
+    # Merge on movie ID
+    split_genres_merge = pd.merge(split_genres, qual_movies, on='movieId')
+    split_genres_merge = split_genres_merge[['title', 'genres_x', 'score']]
+    # List of genres for dropdown
+    genres_list = split_genres_merge['genres_x'].unique().tolist()
 
     if page_selection == "Trending":
         st.title("Trending")
         st.write("The highest-rated movies in the dataset.")        
         st.write("## All genres")
         st.write(qual_movies[['title', 'score']])
-        st.write("## Select a genre")
+        st.write("## Highest rated movies per genre")
+        trending_genre = st.selectbox("Select genre", genres_list)
+        st.write(split_genres_merge[split_genres_merge['genres_x'] == trending_genre][['title', 'score']].sort_values('score', ascending=False).head(10))
+        
         
 
 
