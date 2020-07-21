@@ -149,7 +149,17 @@ def main():
 
     if page_selection == "Trending":
         st.title("Trending")
-        st.write("The highest-rated movies in the dataset.")        
+        st.write("These are the movies that are the most popular among all users.")
+        st.write("The score is calculated using IMDb's weighted rating formula that "+
+                 "considers both the ratings of the movies and the number of votes that "+
+                 "a movie has. This formula provides a 'true Bayesian estimate'"+
+                 ", resulting in a more accurate vote average.")
+        st.write("IMDb's weighted rating formula is as follows: ")
+        st.write("![](https://image.ibb.co/jYWZp9/wr.png)")  
+        st.write("where, \n* v = number of votes given for movie"+
+                 "\n* m = minimum votes required to be listed in the dataset"+
+                 "\n* R = average rating of a movie"+
+                 "\n* C = mean vote across all movies")    
         st.write("## All genres")
         trending_num = st.slider("Number of movies to be shown", 1, 10, 100)
         st.write(qual_movies[['title', 'score']].head(trending_num))
