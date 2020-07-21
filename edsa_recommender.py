@@ -45,7 +45,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview", "EDA"]
+    page_options = ["Recommender System","Trending","Solution Overview", "EDA"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -62,7 +62,7 @@ def main():
                         'Collaborative Based Filtering'))
 
         # User-based preferences
-        st.write('### Enter Your Three Favorite Movies live')
+        st.write('### Enter Your Three Favorite Movies')
         movie_1 = st.selectbox('Fisrt Option',title_list[14930:15200])
         movie_2 = st.selectbox('Second Option',title_list[25055:25255])
         movie_3 = st.selectbox('Third Option',title_list[21100:21200])
@@ -104,8 +104,11 @@ def main():
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
 
-    # You may want to add more sections here for aspects such as an EDA,
-    # or to provide your business pitch.
+    if page_selection == "Trending":
+        st.title("Trending")
+        st.write("The highest-rated movies in the dataset.")
+        st.write("## All genres")
+        st.write("## Select a genre")
 
 
 if __name__ == '__main__':
