@@ -151,10 +151,12 @@ def main():
         st.title("Trending")
         st.write("The highest-rated movies in the dataset.")        
         st.write("## All genres")
-        st.write(qual_movies[['title', 'score']])
+        trending_num = st.slider("Number of movies to be shown", 1, 10, 100)
+        st.write(qual_movies[['title', 'score']].head(trending_num))
         st.write("## Highest rated movies per genre")
         trending_genre = st.selectbox("Select genre", genres_list)
-        st.write(split_genres_merge[split_genres_merge['genres_x'] == trending_genre][['title', 'score']].sort_values('score', ascending=False).head(10))
+        trending_genre_num = st.slider("Number of movies to be shown", 1, 10, 30)
+        st.write(split_genres_merge[split_genres_merge['genres_x'] == trending_genre][['title', 'score']].sort_values('score', ascending=False).head(trending_genre_num))
         
         
 
