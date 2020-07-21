@@ -39,6 +39,8 @@ from recommenders.content_based import content_model
 
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
+movies_df = pd.read_csv('../unsupervised_data/unsupervised_movie_data/movies.csv')
+train_df = pd.read_csv('../unsupervised_data/unsupervised_movie_data/train.csv')
 
 # App declaration
 def main():
@@ -104,11 +106,45 @@ def main():
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
 
+    #----- Code for trending page-----
+    # Merge train and movies tables
+    merged_df = pd.merge(movies_df, train_df, on='movieId')
+    # Get average rating for each movie
+    average_rating = pd.DataFrame(merged_df.groupby('title')['rating'].mean().reset_index())
+    # Get number of votes for each movie
+    vote_counts = pd.DataFrame(merged_df['title'].value_counts().reset_index())
+    vote_counts.rename(columns={'title' : 'vote_count',
+                           'index' : 'title'}, inplace=True)
+    # Create dataframe with movies, vote counts, average ratings
+    movies_with_scores = movies_df.copy()
+    movies_with_scores = pd.merge(movies_with_scores, vote_counts, on='title')
+    movies_with_scores = pd.merge(movies_with_scores, average_rating, on='title')
+
+    # Calculate weighted score
+    C = movies_with_scores['rating'].mean()
+    # Minimum votes required to be listed in the chart - 90th percentile
+    m = movies_with_scores['vote_count'].quantile(0.9)
+    qual_movies = movies_with_scores.copy().loc[movies_with_scores['vote_count'] >= m]
+
+    def weighted_rating(x, m=m, C=C):
+        v = x['vote_count']
+        R = x['rating']
+        # Calculation based on IMDB formula
+        return (v/(v+m) * R) + (m/(m+v) * C)
+
+    # Create a new feature containing the weighted score
+    qual_movies['score'] = qual_movies.apply(weighted_rating, axis=1)
+    # Sort movies based on score
+    qual_movies = qual_movies.sort_values('score', ascending=False)
+
+
     if page_selection == "Trending":
         st.title("Trending")
-        st.write("The highest-rated movies in the dataset.")
+        st.write("The highest-rated movies in the dataset.")        
         st.write("## All genres")
+        st.write(qual_movies[['title', 'score']])
         st.write("## Select a genre")
+        
 
 
 if __name__ == '__main__':
