@@ -97,12 +97,44 @@ def main():
                               We'll need to fix it!")
 
 
+   
     # -------------------------------------------------------------------
-
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
+    # -------------------------------------------------------------------
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+
+    if page_selection == "EDA":
+        st.subheader("Visualizations used to explore the data")
+        if st.checkbox('Top 15 movies'):
+            image = Image.open('top_15_movies.png')
+            st.image(image, caption='TOP 15 MOVIES ', use_column_width=True)
+        if st.checkbox('Bottom 15 Movies'):
+            image = Image.open('bottom_15_movies.png')
+            st.image(image, caption='BOTTOM 15 MOVIES', use_column_width=True)
+        if st.checkbox('Frequent Genres'):
+            image = Image.open('frequent_genres.png')
+            st.image(image, caption='FREQUENT GENRES ', use_column_width=True)
+        if st.checkbox('Genres according to Ratings'):
+            image = Image.open('highest_rated_genres.png')
+            st.image(image, caption='HIGHEST RATED GENRES', use_column_width=True)
+        if st.checkbox('Director Ratings'):
+            image = Image.open('highest_rated_directors.png')
+            st.image(image, caption='HIGHEST RATED DIRECTORS', use_column_width=True)
+        if st.checkbox('Runtime and score comparison'):
+            image = Image.open('runtime_vs_score.png')
+            st.image(image, caption='RUNTIME VS SCORE', use_column_width=True)
+        if st.checkbox('Keywords Frequency'):
+            image = Image.open('frequently_used_keywords.png')
+            st.image(image, caption='FREQUENTLY USED KEYWORDS', use_column_width=True)
+        if st.checkbox('Keywords Frequency for Highly Rated Movies'):
+            image = Image.open('keywords_for_highly_rated_movies.png')
+            st.image(image, caption='FREQUENTLY USED KEYWORDS HIGHLY RATED MOVIES', use_column_width=True)
+        if st.checkbox('Keywords Frequency for Poorly Rated Movies'):
+            image = Image.open('keywords_for_poorly_rated_movies.png')
+            st.image(image, caption='FREQUENTLY USED KEYWORDS POORLY RATED MOVIES', use_column_width=True)
+
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
